@@ -4,7 +4,7 @@ namespace Contributte\Invoice\Templates;
 
 use Contributte\Invoice\Calculators\ICalculator;
 use Contributte\Invoice\Data\Company;
-use WebChemistry\Invoice\Data\Customer;
+use Contributte\Invoice\Data\Customer;
 use Contributte\Invoice\Data\Order;
 use Contributte\Invoice\Formatter;
 use Contributte\Invoice\ITranslator;
