@@ -12,6 +12,7 @@ install:
   - travis_retry composer install --no-progress --prefer-dist
 script:
   # Tests
+  - mkdir tests/acceptance tests/functional || true
   - composer run-script tests
 
 jobs:
@@ -21,6 +22,7 @@ jobs:
       install:
         - travis_retry composer update --no-progress --prefer-dist --prefer-lowest
       script:
+        - mkdir tests/acceptance tests/functional || true
         - composer run-script tests
 
     - stage: Quality Assurance
