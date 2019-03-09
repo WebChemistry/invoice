@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Contributte/invoice.svg?branch=master)](https://travis-ci.org/Contributte/invoice)
+[![Build Status](https://travis-ci.org/contributte/invoice.svg?branch=master)](https://travis-ci.org/contributte/invoice)
 
 # PHP Invoice
 
