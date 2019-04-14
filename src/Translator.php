@@ -10,7 +10,8 @@ class Translator implements ITranslator
 	use SmartObject;
 
 	public const ENGLISH = 'en',
-		CZECH = 'cs';
+		CZECH = 'cs',
+        SLOVENIAN = 'si';
 
 	/** @var mixed[] */
 	private static $translations = [
@@ -66,6 +67,32 @@ class Translator implements ITranslator
 			'subtotal' => 'Subtotal',
 			'dueDate' => 'Due date',
 		],
+        'si' => [
+            'subscriber' => 'Naročnik',
+            'vat' => 'Davćna številka',
+            'vaTin' => 'ID številka',
+            'date' => 'Datum',
+            'invoice' => 'Račun',
+            'invoiceNumber' => 'Številka računa',
+            'taxPay' => 'Davčni zavezanec',
+            'notTax' => 'Davčni nezavezanec',
+            'paymentData' => 'Informacije o plačilu',
+            'page' => 'Stran',
+            'from' => '/',
+            'totalPrice' => 'Skupaj',
+            'item' => 'Artikel',
+            'count' => 'Količina',
+            'pricePerItem' => 'Cena na artikel',
+            'total' => 'Za plačat',
+            'accountNumber' => 'Številka računa',
+            'swift' => 'Swift',
+            'iban' => 'Iban',
+            'varSymbol' => 'Variabilni simbol',
+            'constSymbol' => 'Konstantni simbol',
+            'tax' => 'Davek',
+            'subtotal' => 'Skupaj',
+            'dueDate' => 'Do datuma',
+        ],
 	];
 
 	/** @var string */

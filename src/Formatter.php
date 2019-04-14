@@ -14,6 +14,8 @@ class Formatter implements IFormatter
 
 	public const CZECH = 'cs';
 
+	public const SLOVENIAN = 'si';
+
 	/** @var mixed[] */
 	private static $options = [
 		'cs' => [
@@ -32,6 +34,14 @@ class Formatter implements IFormatter
 			'money' => '%currency %money',
 			'date' => 'd/m/Y',
 		],
+        'si' => [
+            'number' => [
+                'dec' => ',',
+                'sep' => ' ',
+            ],
+            'money' => '%money %currency',
+            'date' => 'd.m.Y',
+        ],
 	];
 
 	/** @var string */
