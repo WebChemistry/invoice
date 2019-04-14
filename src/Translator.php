@@ -9,8 +9,9 @@ class Translator implements ITranslator
 
 	use SmartObject;
 
-	public const ENGLISH = 'en',
-		CZECH = 'cs',
+    public const
+        ENGLISH = 'en',
+        CZECH = 'cs',
         SLOVENIAN = 'si';
 
 	/** @var mixed[] */

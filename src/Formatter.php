@@ -14,7 +14,7 @@ class Formatter implements IFormatter
 
 	public const CZECH = 'cs';
 
-	public const SLOVENIAN = 'si';
+    public const SLOVENIAN = 'si';
 
 	/** @var mixed[] */
 	private static $options = [
