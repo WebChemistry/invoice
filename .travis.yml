@@ -28,6 +28,12 @@ jobs:
       script:
         - composer run-script qa
 
+    - stage: PHPStan
+      php: 7.2
+      script:
+        - composer run-script phpstan-install
+        - composer run-script phpstan
+
 sudo: false
 
 cache:
