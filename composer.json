@@ -34,10 +34,10 @@
 		],
 		"phpstan-install": [
 			"mkdir -p temp/phpstan",
-			"composer require -d temp/phpstan phpstan/phpstan:^0.10",
-			"composer require -d temp/phpstan phpstan/phpstan-deprecation-rules:^0.10",
-			"composer require -d temp/phpstan phpstan/phpstan-nette:^0.10",
-			"composer require -d temp/phpstan phpstan/phpstan-strict-rules:^0.10"
+			"composer require -d temp/phpstan phpstan/phpstan:^0.12",
+			"composer require -d temp/phpstan phpstan/extension-installer:^1.0.4",
+			"composer require -d temp/phpstan phpstan/phpstan-deprecation-rules:^0.12",
+			"composer require -d temp/phpstan phpstan/phpstan-nette:^0.12"
 		],
 		"phpstan": [
 			"temp/phpstan/vendor/bin/phpstan analyse -l max src"
