@@ -14,10 +14,10 @@ class Order
 	/** @var string */
 	private $number;
 
-	/** @var DateTime */
+	/** @var DateTime|null */
 	private $dueDate;
 
-	/** @var Account */
+	/** @var Account|null */
 	private $account;
 
 	/** @var PaymentInformation */

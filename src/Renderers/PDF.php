@@ -24,17 +24,20 @@ class PDF extends FPDF
 		}
 	}
 
-	function SetFontPath($fontPath)
+	public function SetFontPath(string $fontPath): void
 	{
 		$this->fontpath = $fontPath;
 	}
 
-	function Polygon($points, $style = 'D')
+	/**
+	 * @param float[] $points
+	 */
+	public function Polygon(array $points, string $style = 'D'): void
 	{
 		//Draw a polygon
-		if ($style == 'F') {
+		if ($style === 'F') {
 			$op = 'f';
-		} elseif ($style == 'FD' || $style == 'DF') {
+		} elseif ($style === 'FD' || $style === 'DF') {
 			$op = 'b';
 		} else {
 			$op = 's';

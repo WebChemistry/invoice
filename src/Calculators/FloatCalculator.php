@@ -12,6 +12,8 @@ class FloatCalculator implements ICalculator
 	 */
 	public function add($op1, $op2)
 	{
+		assert(!is_string($op1) && !is_string($op2), 'Strings are not supported in FloatCalculator');
+
 		return $op1 + $op2;
 	}
 
@@ -22,6 +24,8 @@ class FloatCalculator implements ICalculator
 	 */
 	public function mul($op1, $op2)
 	{
+		assert(!is_string($op1) && !is_string($op2), 'Strings are not supported in FloatCalculator');
+
 		return $op1 * $op2;
 	}
 
@@ -32,6 +36,8 @@ class FloatCalculator implements ICalculator
 	 */
 	public function div($op1, $op2)
 	{
+		assert(!is_string($op1) && !is_string($op2), 'Strings are not supported in FloatCalculator');
+
 		return $op1 / $op2;
 	}
 
@@ -42,6 +48,8 @@ class FloatCalculator implements ICalculator
 	 */
 	public function sub($op1, $op2)
 	{
+		assert(!is_string($op1) && !is_string($op2), 'Strings are not supported in FloatCalculator');
+
 		return $op1 - $op2;
 	}
 
@@ -51,6 +59,8 @@ class FloatCalculator implements ICalculator
 	 */
 	public function comp($op1, $op2): int
 	{
+		assert(!is_string($op1) && !is_string($op2), 'Strings are not supported in FloatCalculator');
+
 		return $op1 <=> $op2;
 	}
 

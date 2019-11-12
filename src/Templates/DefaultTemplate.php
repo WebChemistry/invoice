@@ -129,7 +129,7 @@ class DefaultTemplate implements ITemplate
 		$renderer = $this->renderer;
 		$half = ($renderer->width() - 553) / 2;
 
-		$renderer->rect(553, $offset, $renderer->width() - 553, 29, function (Settings $settings) {
+		$renderer->rect(553, $offset, $renderer->width() - 553, 29, function (Settings $settings): void {
 			$settings->setFillDrawColor($this->even);
 		});
 		$renderer->polygon([
@@ -137,45 +137,45 @@ class DefaultTemplate implements ITemplate
 			573 + $half, $offset,
 			$renderer->width(), $offset,
 			$renderer->width(), $offset + 29,
-		], function (Settings $settings) {
+		], function (Settings $settings): void {
 			$settings->setFillDrawColor($this->primary);
 		});
-		$renderer->cell(553, $offset, $half, 29.0, Strings::upper($this->translator->translate('totalPrice')) . ':', function (Settings $settings) {
+		$renderer->cell(553, $offset, $half, 29.0, Strings::upper($this->translator->translate('totalPrice')) . ':', static function (Settings $settings): void {
 			$settings->fontFamily = 'sans';
 			$settings->fontStyle = $settings::FONT_STYLE_BOLD;
 			$settings->align = $settings::ALIGN_CENTER;
 		});
-		$renderer->cell(553 + $half, $offset, $half - 4, 29.0, $this->formatter->formatMoney($this->order->getTotalPrice($this->calculator, $this->company->hasTax()), $this->order->getPayment()->getCurrency()), function (Settings $settings) {
+		$renderer->cell(553 + $half, $offset, $half - 4, 29.0, $this->formatter->formatMoney($this->order->getTotalPrice($this->calculator, $this->company->hasTax()), $this->order->getPayment()->getCurrency()), static function (Settings $settings): void {
 			$settings->fontFamily = 'sans';
 			$settings->fontStyle = $settings::FONT_STYLE_BOLD;
 			$settings->fontColor = Color::white();
 		});
 	}
 
+	/**
+	 * @param Item[] $items
+	 */
 	protected function buildItems(int $offset, array $items): int
 	{
 		$renderer = $this->renderer;
 
-		/**
-		 * @var Item $item
-		 */
 		foreach ($items as $i => $item) {
-			$renderer->rect(0, $offset, $renderer->width(), 29, function (Settings $settings) use ($i) {
+			$renderer->rect(0, $offset, $renderer->width(), 29, function (Settings $settings) use ($i): void {
 				$settings->setFillDrawColor($i % 2 === 1 ? $this->even : $this->odd);
 			});
-			$renderer->rect(0, $offset + 30, $renderer->width(), 0.1, function (Settings $settings) {
+			$renderer->rect(0, $offset + 30, $renderer->width(), 0.1, function (Settings $settings): void {
 				$settings->setFillDrawColor($this->even->darken(10));
 			});
 
 			// Data
-			$renderer->cell(33, $offset, 360, 29.0, $item->getName(), function (Settings $settings) {
+			$renderer->cell(33, $offset, 360, 29.0, $item->getName(), function (Settings $settings): void {
 				$settings->fontFamily = 'sans';
 				$settings->fontColor = $this->font;
 				$settings->fontStyle = $settings::FONT_STYLE_NONE;
 				$settings->align = $settings::ALIGN_LEFT;
 				$settings->fontSize = 5;
 			});
-			$renderer->cell(353, $offset, 80, 29.0, $this->formatter->formatNumber($item->getCount()), function (Settings $settings) {
+			$renderer->cell(353, $offset, 80, 29.0, $this->formatter->formatNumber($item->getCount()), static function (Settings $settings): void {
 				$settings->align = $settings::ALIGN_CENTER;
 			});
 
@@ -185,7 +185,7 @@ class DefaultTemplate implements ITemplate
 				$renderer->cell(593, $offset, 70, 29.0, $item->getTax() * 100 . '%');
 			}
 
-			$renderer->cell(670, $offset, 123, 29.0, $this->formatter->formatMoney($item->getTotalPrice($this->calculator, $this->company->hasTax()), $this->order->getPayment()->getCurrency()), function (Settings $settings) {
+			$renderer->cell(670, $offset, 123, 29.0, $this->formatter->formatMoney($item->getTotalPrice($this->calculator, $this->company->hasTax()), $this->order->getPayment()->getCurrency()), static function (Settings $settings): void {
 				$settings->fontFamily = 'sans';
 				$settings->fontStyle = $settings::FONT_STYLE_BOLD;
 			});
@@ -200,7 +200,7 @@ class DefaultTemplate implements ITemplate
 	{
 		$renderer = $this->renderer;
 
-		$renderer->rect(0, 307, $renderer->width(), 29, function (Settings $settings) {
+		$renderer->rect(0, 307, $renderer->width(), 29, function (Settings $settings): void {
 			$settings->setFillDrawColor($this->even);
 		});
 		$renderer->polygon([
@@ -213,12 +213,12 @@ class DefaultTemplate implements ITemplate
 		});
 		$renderer->rect(0, 336, $renderer->width(), 1);
 
-		$renderer->cell(33, 307, 360, 29.0, Strings::upper($this->translator->translate('item')), function (Settings $settings) {
+		$renderer->cell(33, 307, 360, 29.0, Strings::upper($this->translator->translate('item')), function (Settings $settings): void {
 			$settings->fontColor = $this->primary;
 			$settings->fontStyle = $settings::FONT_STYLE_BOLD;
 			$settings->fontSize = 9;
 		});
-		$renderer->cell(353, 307, 80, 29.0, Strings::upper($this->translator->translate('count')), function (Settings $settings) {
+		$renderer->cell(353, 307, 80, 29.0, Strings::upper($this->translator->translate('count')), static function (Settings $settings): void {
 			$settings->align = $settings::ALIGN_CENTER;
 		});
 
@@ -228,7 +228,7 @@ class DefaultTemplate implements ITemplate
 			$renderer->cell(593, 307, 70, 29.0, Strings::upper($this->translator->translate('tax')));
 		}
 
-		$renderer->cell($renderer->width() - 80, 307, 60, 29.0, Strings::upper($this->translator->translate('total')), function (Settings $settings) {
+		$renderer->cell($renderer->width() - 80, 307, 60, 29.0, Strings::upper($this->translator->translate('total')), function (Settings $settings): void {
 			$settings->fontColor = $this->even;
 		});
 	}
@@ -242,7 +242,7 @@ class DefaultTemplate implements ITemplate
 			0, 100,
 			245, 100,
 			312, 0,
-		], function (Settings $settings) {
+		], function (Settings $settings): void {
 			$settings->setFillDrawColor($this->font);
 		});
 
@@ -251,7 +251,7 @@ class DefaultTemplate implements ITemplate
 			245, 100,
 			$renderer->width(), 100,
 			$renderer->height(), 0,
-		], function (Settings $settings) {
+		], function (Settings $settings): void {
 			$settings->setFillDrawColor($this->primary);
 		});
 
@@ -268,7 +268,7 @@ class DefaultTemplate implements ITemplate
 			188, 120,
 			205, 125,
 			222, 100,
-		], function (Settings $settings) {
+		], function (Settings $settings): void {
 			$settings->setFillDrawColor($this->primary->darken(15));
 		});
 
@@ -277,12 +277,12 @@ class DefaultTemplate implements ITemplate
 			217, 106,
 			242, 106,
 			247, 100,
-		], function (Settings $settings) {
+		], function (Settings $settings): void {
 			$settings->setFillDrawColor($this->primary);
 		});
 
 		$y = 36;
-		$renderer->cell(112, $y, 1, null, $this->company->getZip() . ' ' . $this->company->getTown(), function (Settings $settings) {
+		$renderer->cell(112, $y, 1, null, $this->company->getZip() . ' ' . $this->company->getTown(), static function (Settings $settings): void {
 			$settings->align = $settings::ALIGN_RIGHT;
 			$settings->fontSize = 6;
 			$settings->fontFamily = 'sans';
@@ -299,14 +299,14 @@ class DefaultTemplate implements ITemplate
 
 		$multiplier = 0;
 		if ($this->company->getTin()) {
-			$renderer->cell(130, $y, 1, null, Strings::upper($this->translator->translate('vat')) . ': ' . $this->company->getTin(), function (Settings $settings) {
+			$renderer->cell(130, $y, 1, null, Strings::upper($this->translator->translate('vat')) . ': ' . $this->company->getTin(), static function (Settings $settings): void {
 				$settings->align = $settings::ALIGN_LEFT;
 			});
 			$multiplier++;
 		}
 
 		if ($this->company->getVaTin()) {
-			$renderer->cell(130, $y + ($multiplier * 12), 1, null, Strings::upper($this->translator->translate('vaTin')) . ': ' . $this->company->getVaTin(), function (Settings $settings) {
+			$renderer->cell(130, $y + ($multiplier * 12), 1, null, Strings::upper($this->translator->translate('vaTin')) . ': ' . $this->company->getVaTin(), static function (Settings $settings): void {
 				$settings->align = $settings::ALIGN_LEFT;
 			});
 			$multiplier++;
@@ -315,17 +315,17 @@ class DefaultTemplate implements ITemplate
 		$renderer->cell(130, $y + ($multiplier * 12), 1, null,
 			$this->company->hasTax() ? $this->translator->translate('taxPay') : $this->translator->translate('notTax'));
 
-		$renderer->cell(543, 25, 1, null, $this->company->getName(), function (Settings $settings) {
+		$renderer->cell(543, 25, 1, null, $this->company->getName(), static function (Settings $settings): void {
 			$settings->align = $settings::ALIGN_CENTER;
 			$settings->fontSize = 8;
 		});
 
-		$renderer->cell(525, 45, 1, null, $this->translator->translate('date') . ': ' . $this->formatter->formatDate($this->order->getCreated()), function (Settings $settings) {
+		$renderer->cell(525, 45, 1, null, $this->translator->translate('date') . ': ' . $this->formatter->formatDate($this->order->getCreated()), static function (Settings $settings): void {
 			$settings->align = $settings::ALIGN_RIGHT;
 			$settings->fontSize = 6;
 		});
 		$renderer->cell(525, 57, 1, null, $this->translator->translate('invoiceNumber') . ': ' . $this->order->getNumber());
-		$renderer->cell(537, 52, 1, null, Strings::upper($this->translator->translate('invoice')), function (Settings $settings) {
+		$renderer->cell(537, 52, 1, null, Strings::upper($this->translator->translate('invoice')), static function (Settings $settings): void {
 			$settings->align = $settings::ALIGN_LEFT;
 			$settings->fontSize = 18;
 			$settings->fontStyle = $settings::FONT_STYLE_BOLD;
@@ -337,7 +337,7 @@ class DefaultTemplate implements ITemplate
 		$renderer = $this->renderer;
 		$text = Strings::upper($this->translator->translate('subscriber'));
 
-		$renderer->cell(33, 175, 1, null, $text, function (Settings $settings) {
+		$renderer->cell(33, 175, 1, null, $text, function (Settings $settings): void {
 			$settings->fontSize = 16;
 			$settings->fontColor = $this->primary;
 			$settings->fontStyle = $settings::FONT_STYLE_BOLD;
@@ -345,7 +345,7 @@ class DefaultTemplate implements ITemplate
 
 		$x = $renderer->textWidth($text) + 76;
 
-		$x = max($x, $renderer->textWidth($this->customer->getName(), function (Settings $settings) {
+		$x = max($x, $renderer->textWidth($this->customer->getName(), static function (Settings $settings): void {
 				$settings->fontSize = 7;
 			}) + 76);
 
@@ -359,13 +359,13 @@ class DefaultTemplate implements ITemplate
 			$settings->setFillDrawColor($this->primary);
 		});
 
-		$renderer->cell(33, 210, 1, null, $this->customer->getName(), function (Settings $settings) {
+		$renderer->cell(33, 210, 1, null, $this->customer->getName(), function (Settings $settings): void {
 			$settings->fontSize = 10;
 			$settings->fontColor = $this->font;
 		});
 
 		$multiplier = 0;
-		$renderer->cell(33, 228, 1, null, $this->customer->getZip() . ', ' . $this->customer->getTown(), function (Settings $settings) {
+		$renderer->cell(33, 228, 1, null, $this->customer->getZip() . ', ' . $this->customer->getTown(), static function (Settings $settings): void {
 			$settings->fontSize = 6;
 			$settings->fontStyle = $settings::FONT_STYLE_NONE;
 		});
@@ -395,7 +395,7 @@ class DefaultTemplate implements ITemplate
 	{
 		$renderer = $this->renderer;
 
-		$renderer->cell(450, 145, 1, null, Strings::upper($this->translator->translate('paymentData')), function (Settings $settings) {
+		$renderer->cell(450, 145, 1, null, Strings::upper($this->translator->translate('paymentData')), function (Settings $settings): void {
 			$settings->fontColor = $this->primary;
 			$settings->align = $settings::ALIGN_LEFT;
 			$settings->fontStyle = $settings::FONT_STYLE_BOLD;
@@ -410,17 +410,17 @@ class DefaultTemplate implements ITemplate
 			$renderer->width(), 160,
 		]);
 
-		$iconCb = function (Settings $settings) {
+		$iconCb = function (Settings $settings): void {
 			$settings->fontStyle = $settings::FONT_STYLE_NONE;
 			$settings->fontColor = $this->primary;
 			$settings->fontSize = 9;
 			$settings->fontFamily = 'icons';
 		};
-		$sectionCb = function (Settings $settings) {
+		$sectionCb = static function (Settings $settings): void {
 			$settings->fontSize = 6;
 			$settings->fontFamily = 'sans';
 		};
-		$textCb = function (Settings $settings) {
+		$textCb = function (Settings $settings): void {
 			$settings->fontColor = $this->font;
 		};
 
@@ -475,11 +475,11 @@ class DefaultTemplate implements ITemplate
 	{
 		$renderer = $this->renderer;
 
-		$renderer->rect(0, $renderer->height() - 20, $renderer->width(), 20, function (Settings $settings) {
+		$renderer->rect(0, $renderer->height() - 20, $renderer->width(), 20, function (Settings $settings): void {
 			$settings->setFillDrawColor($this->font);
 		});
 
-		$renderer->cell(0, -10, $renderer->width() - 10, null, $this->translator->translate('page') . ' ' . $paginator->getCurrentPage() . ' / ' . $paginator->getTotalPages(), function (Settings $settings) {
+		$renderer->cell(0, -10, $renderer->width() - 10, null, $this->translator->translate('page') . ' ' . $paginator->getCurrentPage() . ' / ' . $paginator->getTotalPages(), static function (Settings $settings): void {
 			$settings->fontColor = Color::white();
 			$settings->fontFamily = 'sans';
 			$settings->align = $settings::ALIGN_RIGHT;

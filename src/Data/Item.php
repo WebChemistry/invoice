@@ -85,12 +85,13 @@ class Item
 			return $calculator->add($this->totalPrice, 0);
 		}
 
-		$tax = $calculator->add($this->tax, 1.0);
-
 		if (!$useTax) {
 			return $calculator->mul($this->price, $this->count);
 		} else {
 			$total = $calculator->mul($this->price, $this->count);
+
+			assert($this->tax !== null);
+			$tax = $calculator->add($this->tax, 1.0);
 
 			return $calculator->mul($total, $tax);
 		}
