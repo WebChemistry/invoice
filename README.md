@@ -1,134 +1,54 @@
-[![Build Status](https://travis-ci.org/contributte/invoice.svg?branch=master)](https://travis-ci.org/contributte/invoice)
+<h1 align=center>Invoice</h1>
 
-# PHP Invoice
+<p align=center>
+    PDF invoice generator
+</p>
 
-Average output ~20ms
+<p align=center>
+  <a href="https://travis-ci.org/contributte/invoice"><img src="https://img.shields.io/travis/contributte/invoice.svg?style=flat-square"></a>
+  <a href="https://coveralls.io/r/contributte/invoice"><img src="https://img.shields.io/coveralls/contributte/invoice.svg?style=flat-square"></a>
+  <a href="https://packagist.org/packages/contributte/invoice"><img src="https://img.shields.io/packagist/dm/contributte/invoice.svg?style=flat-square"></a>
+  <a href="https://packagist.org/packages/contributte/invoice"><img src="https://img.shields.io/packagist/v/contributte/invoice.svg?style=flat-square"></a>
+  <a href="http://bit.ly/ctteg"><img src="https://img.shields.io/gitter/room/contributte/contributte.svg?style=flat-square"></a>
+<p>
 
-## Installation
+<p align=center>
+Website 🚀 <a href="https://contributte.org">contributte.org</a> | Contact 👨🏻‍💻 <a href="https://f3l1x.io">f3l1x.io</a> | Twitter 🐦 <a href="https://twitter.com/contributte">@contributte</a>
+</p>
 
-php 7.1
+## Usage
+
+To install latest version of `contributte/invoice` use [Composer](https://getcomposer.com).
 
 ```
 composer require contributte/invoice
 ```
 
-Example
-```php
-$invoice = new Contributte\Invoice\Invoice(Contributte\Invoice\Preview\PreviewFactory::createCompany());
+## Documentation
 
-$invoice->send(Contributte\Invoice\Preview\PreviewFactory::createCustomer(), Contributte\Invoice\Preview\PreviewFactory::createOrder());
-```
+For details on how to use this package, check out our [documentation](.docs).
 
-## Usage
+## Versions
 
-### Company
+| State       | Version       | Branch   | PHP     |
+|-------------|---------------|----------|---------|
+| dev         | `dev-master`  | `master` | `^7.2`  |
+| stable      | `^3.0`        | `master` | `^7.2`  |
 
-```php
-$company = new Contributte\Invoice\Data\Company('John Doe', 'Los Angeles', 'Cavetown', '720 55', 'USA', '0123456789', 'CZ0123456789');
-```
+## Development
 
-### Customer
+See [how to contribute](https://contributte.org/contributing.html) to this package.
 
-```php
-$customer = new Contributte\Invoice\Data\Customer('John Doe', 'Los Angeles', 'Cavetown', '720 55', 'USA');
-```
+This package is currently maintaining by these authors.
 
-### Account
+<a href="https://github.com/f3l1x">
+    <img width="80" height="80" src="https://avatars2.githubusercontent.com/u/538058?v=3&s=80">
+</a>
+<a href="https://github.com/MartkCz">
+    <img width="80" height="80" src="https://avatars2.githubusercontent.com/u/10145362?v=3&s=80">
+</a>
 
-```php
-$account = new Contributte\Invoice\Data\Account('1111', 'CZ4808000000002353462015', 'GIGACZPX');
-```
+-----
 
-### Payment info
-
-```php
-$payment = new Contributte\Invoice\Data\PaymentInformation('Kč', '0123456789', '1234', 0.21);
-```
-
-### Order
-
-```php
-$order = new Contributte\Invoice\Data\Order('20160001', new \DateTime('+ 14 days'), $account, $payment);
-```
-
-Adding items
-
-```php
-$order->addItem('Logitech G700s Rechargeable Gaming Mouse', 4, 1790);
-```
-
-### Customizing
-
-```php
-class CustomFormatter implements IFormatter {
-	
-}
-```
-
-## Generating invoices
-
-```php
-$invoice = new Contributte\Invoice\Invoice($company);
-
-header('Content-Type: application/pdf; charset=utf-8');
-echo $invoice->create($customer, $order);
-```
-
-shorter
-```php
-$invoice = new Contributte\Invoice\Invoice($company);
-
-$invoice->send($customer, $order);
-```
-
-nette framework way
-```php
-$invoice = new Contributte\Invoice\Invoice($company);
-
-$this->sendResponse($invoice->createResponse($customer, $order));
-```
-
-## Generating preview
-
-```php
-$invoice->send(Contributte\Invoice\Preview\PreviewFactory::createCustomer(), Contributte\Invoice\Preview\PreviewFactory::createOrder());
-```
-
-## Nette DI
-
-```yaml
-extensions:
-	invoice: Contributte\Invoice\DI\InvoiceExtension
-
-invoice:
-	lang: en
-	company:
-		name:
-		town:
-		address:
-		zip:
-		country:
-		## Optional
-		tin:
-		vaTin:
-		isTax:
-```
-
-```php
-
-class Component {
-
-	public function __construct(Contributte\Invoice\Invoice $invoice) {
-		// ...
-	}
-}
-
-```
-
-## Previews
-
-First page:
-![first page](http://i.imgbox.com/pwFByZ1L.jpg)
-
-Second page:
-![second page](http://i.imgbox.com/ebrwXldf.jpg)
+Consider to [support](https://contributte.org/partners.html) **contributte** development team.
+Also thank you for using this package.
