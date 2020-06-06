@@ -18,7 +18,10 @@ class ItemTest extends \Codeception\Test\Unit
 	// tests
 	public function testTotalPriceWithoutTax()
 	{
-		$this->assertSame('30.00', $this->item->getTotalPrice($this->calculator, false));
+		// php bug < 7.3.0, bcmul ignores scale, https://bugs.php.net/bug.php?id=66364
+		$expected = PHP_VERSION_ID < 70300 ? '30' : '30.00';
+
+		$this->assertSame($expected, $this->item->getTotalPrice($this->calculator, false));
 	}
 
 	public function testTotalPriceSetFixed()
