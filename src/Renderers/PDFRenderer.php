@@ -163,7 +163,7 @@ class PDFRenderer implements IRenderer
 		}
 	}
 
-	public function getSource()
+	public function getSource(): PDF
 	{
 		return $this->pdf;
 	}

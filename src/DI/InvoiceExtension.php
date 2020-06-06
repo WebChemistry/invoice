@@ -19,7 +19,8 @@ use Nette\Schema\Schema;
 class InvoiceExtension extends CompilerExtension
 {
 
-	public function getConfigSchema(): Schema {
+	public function getConfigSchema(): Schema
+	{
 		return Expect::structure([
 			'company' => Expect::structure([
 				'name' => Expect::string()->required(),
