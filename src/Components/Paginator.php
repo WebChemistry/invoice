@@ -67,6 +67,7 @@ class Paginator
 		if ($this->isLastPage()) {
 			return false;
 		}
+
 		$this->currentPage++;
 
 		return true;

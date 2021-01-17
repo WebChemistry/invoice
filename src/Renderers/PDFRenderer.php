@@ -137,6 +137,7 @@ class PDFRenderer implements IRenderer
 
 			$this->pdf->SetDrawColor($color->getRed(), $color->getGreen(), $color->getBlue());
 		}
+
 		if ($settings->fillColor !== null) {
 			$color = $settings->fillColor;
 

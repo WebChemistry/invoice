@@ -15,6 +15,7 @@ class BcCalculator implements ICalculator
 		if (!function_exists('bcadd')) {
 			throw new RuntimeException('BC math is not installed.');
 		}
+
 		$this->scale = $scale;
 	}
 
