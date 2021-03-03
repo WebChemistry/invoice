@@ -20,10 +20,10 @@
 
 ## Usage
 
-To install latest version of `contributte/invoice` use [Composer](https://getcomposer.com).
+To install latest version of `contributte/invoice` use [Composer](https://getcomposer.org).
 
 ```
-composer require contributte/invoice
+$ composer require contributte/invoice
 ```
 
 ## Documentation
