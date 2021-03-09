@@ -22,8 +22,8 @@
 
 To install latest version of `contributte/invoice` use [Composer](https://getcomposer.org).
 
-```
-$ composer require contributte/invoice
+```bash
+composer require contributte/invoice
 ```
 
 ## Documentation
