@@ -104,36 +104,36 @@ First, create class that implements ITranslator
 ```php
 class Translator implements Contributte\Invoice\ITranslator {
 
-    private static $translations = [
-        'subscriber' => 'Subscriber',
-        'vat' => 'VAT number',
-        'vaTin' => 'VATIN',
-        'date' => 'Date',
-        'invoice' => 'Invoice',
-        'invoiceNumber' => 'Invoice number',
-        'taxPay' => '',
-        'notTax' => 'VAT unregistered',
-        'paymentData' => 'Payment information',
-        'page' => 'Page',
-        'from' => '/',
-        'totalPrice' => 'Total price',
-        'item' => 'Item',
-        'count' => 'Quantity',
-        'pricePerItem' => 'Price per item',
-        'total' => 'Total',
-        'accountNumber' => 'Account number',
-        'swift' => 'Swift',
-        'iban' => 'Iban',
-        'varSymbol' => 'Variable symbol',
-        'constSymbol' => 'Constant symbol',
-        'tax' => 'TAX',
-        'subtotal' => 'Subtotal',
-        'dueDate' => 'Due date',
-     ];
-    
-    public function translate(string $message): string {
+	private static $translations = [
+		'subscriber' => 'Subscriber',
+		'vat' => 'VAT number',
+		'vaTin' => 'VATIN',
+		'date' => 'Date',
+		'invoice' => 'Invoice',
+		'invoiceNumber' => 'Invoice number',
+		'taxPay' => '',
+		'notTax' => 'VAT unregistered',
+		'paymentData' => 'Payment information',
+		'page' => 'Page',
+		'from' => '/',
+		'totalPrice' => 'Total price',
+		'item' => 'Item',
+		'count' => 'Quantity',
+		'pricePerItem' => 'Price per item',
+		'total' => 'Total',
+		'accountNumber' => 'Account number',
+		'swift' => 'Swift',
+		'iban' => 'Iban',
+		'varSymbol' => 'Variable symbol',
+		'constSymbol' => 'Constant symbol',
+		'tax' => 'TAX',
+		'subtotal' => 'Subtotal',
+		'dueDate' => 'Due date',
+	 ];
+
+	public function translate(string $message): string {
 		return self::$translations[$message];
-    }
+	}
 
 }
 ```
@@ -165,12 +165,12 @@ if you use nette, recommended way is
 
 ```php
 class CustomPresenter {
-    
-    public function actionPreview() {
-        $invoice = new Contributte\Invoice\Invoice($company);
-        
-        $this->sendResponse($invoice->createResponse($customer, $order));
-    }
+
+	public function actionPreview() {
+		$invoice = new Contributte\Invoice\Invoice($company);
+
+		$this->sendResponse($invoice->createResponse($customer, $order));
+	}
 
 }
 ```
@@ -183,7 +183,7 @@ $invoice->send(Contributte\Invoice\Preview\PreviewFactory::createCustomer(), Con
 
 ## Neon configuration
 
-```yaml
+```neon
 extensions:
 	invoice: Contributte\Invoice\DI\InvoiceExtension
 
