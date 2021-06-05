@@ -14,8 +14,8 @@ paths:
   output: tests/_output
 
 extensions:
-    enabled:
-        - Codeception\Extension\RunFailed
+  enabled:
+    - Codeception\Extension\RunFailed
 
 settings:
   log: true

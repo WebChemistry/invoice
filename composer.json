@@ -1,48 +1,49 @@
 {
-	"name": "contributte/invoice",
-	"type": "library",
-	"description": "Library for easily and quickly creating invoices for customers.",
-	"license": ["MIT"],
-	"keywords": [
-		"contributte",
-		"invoice"
-	],
-	"require": {
-		"php": ">=7.2",
-		"nette/utils": "^3.0.0",
-		"setasign/fpdf": "^1.8.0"
-	},
-	"require-dev": {
-		"codeception/codeception": "^4.1.0",
-		"codeception/module-asserts": "^1.3.0",
-		"codeception/module-phpbrowser": "^1.0.0",
-		"nette/di": "^3.0.0",
-		"nette/application": "^3.0.0",
-		"ninjify/qa": "^0.12.0",
-		"phpstan/phpstan": "^0.12",
-		"phpstan/phpstan-deprecation-rules": "^0.12",
-		"phpstan/phpstan-nette": "^0.12"
-
-	},
-	"autoload": {
-		"psr-4": {
-			"Contributte\\Invoice\\": "src/"
-		}
-	},
-	"scripts": {
-		"qa": [
-			"linter src tests",
-			"codesniffer src tests"
-		],
-		"tests": [
-			"vendor/bin/codecept run"
-		]
-	},
-	"minimum-stability": "RC",
-	"prefer-stable": true,
-	"extra": {
-		"branch-alias": {
-			"dev-master": "3.1.x-dev"
-		}
-	}
+  "name": "contributte/invoice",
+  "type": "library",
+  "description": "Library for easily and quickly creating invoices for customers.",
+  "license": [
+    "MIT"
+  ],
+  "keywords": [
+    "contributte",
+    "invoice"
+  ],
+  "require": {
+    "php": ">=7.2",
+    "nette/utils": "^3.0.0",
+    "setasign/fpdf": "^1.8.0"
+  },
+  "require-dev": {
+    "codeception/codeception": "^4.1.0",
+    "codeception/module-asserts": "^1.3.0",
+    "codeception/module-phpbrowser": "^1.0.0",
+    "nette/di": "^3.0.0",
+    "nette/application": "^3.0.0",
+    "ninjify/qa": "^0.12.0",
+    "phpstan/phpstan": "^0.12",
+    "phpstan/phpstan-deprecation-rules": "^0.12",
+    "phpstan/phpstan-nette": "^0.12"
+  },
+  "autoload": {
+    "psr-4": {
+      "Contributte\\Invoice\\": "src/"
+    }
+  },
+  "scripts": {
+    "qa": [
+      "linter src tests",
+      "codesniffer src tests"
+    ],
+    "tests": [
+      "vendor/bin/codecept run"
+    ]
+  },
+  "minimum-stability": "RC",
+  "prefer-stable": true,
+  "extra": {
+    "branch-alias": {
+      "dev-master": "3.1.x-dev"
+    }
+  }
 }
