@@ -10,7 +10,7 @@
     "invoice"
   ],
   "require": {
-    "php": ">=7.2",
+    "php": ">=8.0",
     "webchemistry/svg-pdf": "~1.0.0"
   },
   "require-dev": {
