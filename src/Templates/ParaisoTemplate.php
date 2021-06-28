@@ -37,7 +37,7 @@ class ParaisoTemplate extends Template
 
 	protected function getTemplate(): string
 	{
-		return __DIR__ . '/templates/paraiso.phpt';
+		return __DIR__ . '/templates/paraiso.phtml';
 	}
 
 	/**
