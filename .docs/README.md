@@ -22,7 +22,6 @@ $invoice = new Contributte\Invoice\Invoice();
 $dataProvider = new Contributte\Invoice\Provider\DataProvider(
     new Company('Contributte', 'Prague', 'U haldy', '110 00', 'Czech Republic', 'CZ08304431', '08304431'),
     [new Account('CZ4808000000002353462013')],
-    new Currency('Kč', ':price :currency'), // change default format $ 1000 to 1000 Kč
 );
 ```
 
@@ -85,7 +84,7 @@ use Contributte\Invoice\Data\Timestamps;
 
 $order = new Order(
     date('Y') . '0001',
-    '15.000,00',
+    '$ 15.000,00',
     new Company('Contributte', 'Prague', 'U haldy', '110 00', 'Czech Republic', 'CZ08304431', '08304431'),
     new Customer('John Doe', 'Los Angeles', 'Cavetown', '720 55', 'USA', 'CZ08304431', '08304431'),
     new PaymentInformation(
@@ -103,11 +102,11 @@ $order = new Order(
 ```php
 use Contributte\Invoice\Data\Item;
 
-$order->addInlineItem('Logitech G700s Rechargeable Gaming Mouse', '1.790,00', 4, '7.160,00');
+$order->addInlineItem('Logitech G700s Rechargeable Gaming Mouse', '$ 1.790,00', 4, '$ 7.160,00');
 
 // or
 
-$order->addItem(new Item('Logitech G700s Rechargeable Gaming Mouse', '1.790,00', 4, '7.160,00'));
+$order->addItem(new Item('Logitech G700s Rechargeable Gaming Mouse', '$ 1.790,00', 4, '$ 7.160,00'));
 ```
 
 ## Generating invoices
@@ -142,17 +141,18 @@ extensions:
 	invoice: Contributte\Invoice\DI\InvoiceExtension
 
 invoice:
-	lang: en
 	company:
 		name: string
 		town: string
 		address: string
-		zip: string|int
+		zip: string
 		country: string
 		## Optional below
-		tin: string|int
-		vaTin: string|int
-		isTax: bool
+		vatNumber: string
+		id: string
+	accounts:
+		-
+			iban: string
 ```
 
 ## Templates
@@ -166,3 +166,10 @@ Multiple pages:
 
 Greyscale:
 ![greyscale](/.docs/img/paraiso-greyscale.png?raw=true)
+
+## Turoiso
+Single page:
+![single page](/.docs/img/turoiso.png?raw=true)
+
+Greyscale:
+![greyscale](/.docs/img/turoiso-greyscale.png?raw=true)
