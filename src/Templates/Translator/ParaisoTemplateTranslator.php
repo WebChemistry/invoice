@@ -2,14 +2,12 @@
 
 namespace Contributte\Invoice\Templates\Translator;
 
-use InvalidArgumentException;
-
-class ParaisoTemplateTranslator implements ITranslator
+final class ParaisoTemplateTranslator extends Translator
 {
 
-	/** @var mixed[] */
-	protected array $translations = [
-		'en' => [
+	public function __construct(string $lang = 'en')
+	{
+		$this->addLanguage('en', [
 			'Invoice' => 'Invoice',
 			'Discount' => 'Discount',
 			'Payment Info' => 'Payment Info',
@@ -26,29 +24,9 @@ class ParaisoTemplateTranslator implements ITranslator
 			'Variable symbol' => 'Variable symbol',
 			'Constant symbol' => 'Constant symbol',
 			'Specific symbol' => 'Specific symbol',
-		],
-	];
+		]);
 
-	public function __construct(
-		private string $lang = 'en',
-	)
-	{
-		if (!isset($this->translations[$this->lang])) {
-			throw new InvalidArgumentException(sprintf('Translation language %s not exists', $this->lang));
-		}
-	}
-
-	/**
-	 * @param mixed[] $translations
-	 */
-	public function addLanguage(string $lang, array $translations): void
-	{
-		$this->translations[$lang] = $translations;
-	}
-
-	public function translate(string $message): string
-	{
-		return $this->translations[$this->lang][$message] ?? $message;
+		parent::__construct($lang);
 	}
 
 }
