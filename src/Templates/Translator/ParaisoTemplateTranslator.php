@@ -8,13 +8,17 @@ final class ParaisoTemplateTranslator extends Translator
 	public function __construct(string $lang = 'en')
 	{
 		$this->addLanguage('en', [
-			'Invoice' => 'Invoice',
+			'Invoice' => 'INVOICE',
 			'Discount' => 'Discount',
 			'Payment Info' => 'Payment Info',
 			'Total price' => 'Total price',
 			'Invoice from' => 'Invoice from',
 			'Invoice to' => 'Invoice to',
 			'ID' => 'ID',
+			'Total' => 'Total',
+			'Item description' => 'Item description',
+			'Unit price' => 'Unit price',
+			'Quantity' => 'Quantity',
 			'VAT Number' => 'VAT Number',
 			'Invoice No.' => 'Invoice No.',
 			'Invoice date' => 'Invoice date',
