@@ -4,7 +4,6 @@ namespace Contributte\Invoice\Provider;
 
 use Contributte\Invoice\Data\IAccount;
 use Contributte\Invoice\Data\ICompany;
-use Contributte\Invoice\Data\ICurrency;
 
 final class InvoiceDataProvider
 {
@@ -15,7 +14,6 @@ final class InvoiceDataProvider
 	public function __construct(
 		private ICompany $company,
 		private array $accounts = [],
-		private ?ICurrency $currency = null,
 	)
 	{
 	}
@@ -31,11 +29,6 @@ final class InvoiceDataProvider
 	public function getAccounts(): array
 	{
 		return $this->accounts;
-	}
-
-	public function getCurrency(): ?ICurrency
-	{
-		return $this->currency;
 	}
 
 }

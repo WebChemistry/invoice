@@ -6,7 +6,6 @@ use Contributte\Invoice\Templates\Template\ParaisoTemplateObject;
 use WebChemistry\SvgPdf\Utility\TemplateUtility;
 
 /** @var $template ParaisoTemplateObject */
-$formatMoney = $template->formatMoneyCallback();
 $order = $template->getOrder();
 $payment = $order->getPayment();
 
@@ -66,7 +65,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 
 	<!-- Total Due -->
 	<text font-size="67" x="1678" y="878" fill="<?= $this->colors['totalDue'] ?>" text-anchor="start"><?= TemplateUtility::escape($template->translate('Total price')) ?>:</text>
-	<text font-size="67" x="1678" y="959" fill="<?= $this->colors['primary'] ?>" font-weight="bold" text-anchor="start"><?= TemplateUtility::escape($formatMoney($order->getTotalPrice())) ?></text>
+	<text font-size="67" x="1678" y="959" fill="<?= $this->colors['primary'] ?>" font-weight="bold" text-anchor="start"><?= TemplateUtility::escape($order->getTotalPrice()) ?></text>
 	<!-- / Total Due -->
 
 	<rect x="0" y="1133" width="2480" height="5" fill="<?= $this->colors['primary'] ?>" />
@@ -89,7 +88,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 		<foreignObject x="1031" y="<?= $y ?>" width="400" height="200" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
 			<p xmlns="http://www.w3.org/1999/xhtml" style="font-size:42px;color:#5f6f73;text-align:center;"><?= TemplateUtility::escape($item->getQuantity()) ?></p>
 		</foreignObject>
-		<text font-size="42" x="1031" y="<?= $y ?>" fill="#5f6f73" text-anchor="middle" data-pdf-width="400"><?= TemplateUtility::escape($formatMoney($item->getUnitPrice())) ?></text>
+		<text font-size="42" x="1031" y="<?= $y ?>" fill="#5f6f73" text-anchor="middle" data-pdf-width="400"><?= TemplateUtility::escape($item->getUnitPrice()) ?></text>
 	</switch>
 
 	<switch>
@@ -103,7 +102,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 		<foreignObject x="1974" y="<?= $y ?>" width="400" height="200" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
 			<p xmlns="http://www.w3.org/1999/xhtml" style="font-size:42px;text-align:center;color:#5f6f73"><?= TemplateUtility::escape($item->getTotalPrice()) ?></p>
 		</foreignObject>
-		<text font-size="42" x="1974" y="<?= $y ?>" fill="#5f6f73" text-anchor="middle" data-pdf-width="400"><?= TemplateUtility::escape($formatMoney($item->getTotalPrice())) ?></text>
+		<text font-size="42" x="1974" y="<?= $y ?>" fill="#5f6f73" text-anchor="middle" data-pdf-width="400"><?= TemplateUtility::escape($item->getTotalPrice()) ?></text>
 	</switch>
 
 	<?php $y->increment(); endforeach; ?>
@@ -119,18 +118,18 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 
 	<?php if ($payment instanceof IPriceWithTax): ?>
 		<text font-size="42" x="1593" y="<?= $y; ?>" fill="#5f6f73">Sub Total:</text>
-		<text font-size="42" x="2250" y="<?= $y->postIncrement(); ?>" text-anchor="end" fill="#5f6f73"><?= TemplateUtility::escape($formatMoney($payment->getPriceBeforeTax())) ?></text>
+		<text font-size="42" x="2250" y="<?= $y->postIncrement(); ?>" text-anchor="end" fill="#5f6f73"><?= TemplateUtility::escape($payment->getPriceBeforeTax()) ?></text>
 
 		<text font-size="42" x="1593" y="<?= $y; ?>" fill="#5f6f73">Tax:</text>
-		<text font-size="42" x="2250" y="<?= $y->postIncrement(); ?>" text-anchor="end" fill="#5f6f73"><?= TemplateUtility::escape($formatMoney($payment->getTax())) ?></text>
+		<text font-size="42" x="2250" y="<?= $y->postIncrement(); ?>" text-anchor="end" fill="#5f6f73"><?= TemplateUtility::escape($payment->getTax()) ?></text>
 	<?php endif; ?>
 
 	<?php if ($order instanceof IDiscount): ?>
 		<text font-size="42" x="1593" y="<?= $y; ?>" fill="#5f6f73"><?= TemplateUtility::escape($template->translate('Discount')) ?>:</text>
-		<text font-size="42" x="2250" y="<?= $y->postIncrement(); ?>" text-anchor="end" fill="#5f6f73"><?= TemplateUtility::escape($formatMoney($order->getDiscount())) ?></text>
+		<text font-size="42" x="2250" y="<?= $y->postIncrement(); ?>" text-anchor="end" fill="#5f6f73"><?= TemplateUtility::escape($order->getDiscount()) ?></text>
 	<?php endif; ?>
 
-	<text font-size="42" x="1593" y="<?= $y; ?>" font-weight="bold" fill="#5f6f73">Total</text>
+	<text font-size="42" x="1593" y="<?= $y; ?>" font-weight="bold" fill="#5f6f73"><?= TemplateUtility::escape($template->translate('Total')) ?></text>
 	<text font-size="42" x="2250" y="<?= $y; ?>" font-weight="bold" text-anchor="end" fill="#5f6f73">$ 4500.00</text>
 
 	<?php $paymentY = TemplateUtility::multiplier($adjust, 42 + 30); ?>

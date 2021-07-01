@@ -17,8 +17,6 @@ interface IOrder
 
 	public function getPayment(): IPaymentInformation;
 
-	public function getCurrency(): ICurrency;
-
 	/**
 	 * @return IItem[]
 	 */

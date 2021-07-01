@@ -4,7 +4,6 @@ namespace Contributte\Invoice\DI;
 
 use Contributte\Invoice\Data\Account;
 use Contributte\Invoice\Data\Company;
-use Contributte\Invoice\Data\Currency;
 use Contributte\Invoice\Invoice;
 use Contributte\Invoice\Provider\InvoiceDataProvider;
 use Nette\DI\CompilerExtension;
@@ -31,10 +30,6 @@ class InvoiceExtension extends CompilerExtension
 			'accounts' => Expect::arrayOf(Expect::structure([
 				'iban' => Expect::string(),
 			])),
-			'currency' => Expect::structure([
-				'currency' => Expect::string()->required(),
-				'template' => Expect::string()->default(':currency:price'),
-			]),
 		]);
 	}
 
@@ -46,7 +41,6 @@ class InvoiceExtension extends CompilerExtension
 			->setFactory(InvoiceDataProvider::class, [
 				$this->getCompany(),
 				$this->getAccounts(),
-				$this->getCurrency(),
 			]);
 
 		$builder->addDefinition($this->prefix('invoice'))
@@ -91,21 +85,6 @@ class InvoiceExtension extends CompilerExtension
 		}
 
 		return $accounts;
-	}
-
-	private function getCurrency(): ?Statement
-	{
-		/** @var stdClass $config */
-		$config = $this->getConfig();
-
-		/** @var stdClass $currency */
-		$currency = $config->currency;
-
-		if (!$currency->currency) {
-			return null;
-		}
-
-		return new Statement(Currency::class, [$currency->currency, $currency->template]);
 	}
 
 }

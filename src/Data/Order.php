@@ -8,8 +8,6 @@ class Order implements IOrder
 	/** @var IItem[] */
 	private array $items = [];
 
-	private ICurrency $currency;
-
 	public function __construct(
 		private string $number,
 		private string $totalPrice,
@@ -17,10 +15,8 @@ class Order implements IOrder
 		private ICustomer $customer,
 		private IPaymentInformation $payment,
 		private ITimestamps $timestamps,
-		?ICurrency $currency = null,
 	)
 	{
-		$this->currency = $currency ?? new Currency('$');
 	}
 
 	public function addItem(IItem $item): IItem
@@ -69,11 +65,6 @@ class Order implements IOrder
 	public function getItems(): array
 	{
 		return $this->items;
-	}
-
-	public function getCurrency(): ICurrency
-	{
-		return $this->currency;
 	}
 
 }
