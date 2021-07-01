@@ -127,9 +127,4 @@ class ParaisoTemplateObject extends TemplateObject
 		]));
 	}
 
-	private function prepend(string $prepend, ?string $str): ?string
-	{
-		return $str === null ? null : $prepend . $str;
-	}
-
 }

@@ -36,4 +36,22 @@ abstract class TemplateObject
 		return fn (string $money) => $this->order->getCurrency()->toString($money);
 	}
 
+	protected function prepend(string $prepend, ?string $str): ?string
+	{
+		return $str === null ? null : $prepend . $str;
+	}
+
+	/**
+	 * @param mixed[] $items
+	 */
+	protected function implode(array $items, string $separator): ?string
+	{
+		$items = array_filter($items);
+		if (!$items) {
+			return null;
+		}
+
+		return implode($separator, $items);
+	}
+
 }
