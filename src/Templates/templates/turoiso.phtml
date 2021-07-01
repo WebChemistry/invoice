@@ -1,0 +1,143 @@
+<?php
+
+use Contributte\Invoice\Data\Extension\IPriceWithTax;
+use Contributte\Invoice\Templates\Template\TuroisoTemplateObject;
+use Contributte\Invoice\Templates\TuroisoTemplate;
+use WebChemistry\SvgPdf\Utility\TemplateUtility;
+
+/** @var $this TuroisoTemplate */
+/** @var $template TuroisoTemplateObject */
+$formatMoney = $template->formatMoneyCallback();
+$order = $template->getOrder();
+$payment = $order->getPayment();
+
+$height = '841.89';
+$width = '595.28';
+$globalY = 0;
+
+echo '<?xml version="1.0" encoding="UTF-8"?>';
+?>
+<svg xmlns="http://www.w3.org/2000/svg" width="<?= $width ?>" height="<?= $height ?>">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+		* {
+			font-family: Montserrat;
+		}
+		p { margin: 0; }
+	</style>
+	<!-- Header design -->
+	<polygon points="0,0 0,100 245,100 312,0" fill="<?= $template->colors['secondary'] ?>" />
+	<polygon points="312,0 245,100 <?= $width ?>,100 <?= $height ?>,0" fill="<?= $template->colors['primary'] ?>" />
+	<polygon points="0,100 0,106 168,106 188,120 200,100" fill="<?= $template->colors['primary'] ?>" />
+	<polygon points="200,100 188,120 205,125 222,100" fill="<?= $template->colors['primary']->darken(15) ?>" />
+	<polygon points="222,100 217,106 242,106 247,100" fill="<?= $template->colors['primary'] ?>" />
+	<!-- / Header design -->
+	<!-- Header text -->
+	<text x="120" y="25" font-size="18" fill="<?= $template->colors['white'] ?>" text-anchor="middle"><?= TemplateUtility::escape($order->getCompany()->getName()) ?></text>
+
+	<?php $y = TemplateUtility::multiplier(48, 12) ?>
+	<?php foreach ($template->leftHeaderLeft as $item): ?>
+		<text x="112" y="<?= $y ?>" font-size="7" fill="<?= $template->colors['white'] ?>" text-anchor="end"><?= TemplateUtility::escape($item) ?></text>
+	<?php endforeach; ?>
+
+	<?php $y = $y->copy(); ?>
+	<?php foreach ($template->leftHeaderRight as $item): ?>
+		<text x="130" y="<?= $y ?>" font-size="7" fill="<?= $template->colors['white'] ?>"><?= TemplateUtility::escape($item) ?></text>
+	<?php endforeach; ?>
+	<!-- / Header text -->
+
+	<!-- Header text right -->
+
+	<?php $y = TemplateUtility::multiplier(45, 12) ?>
+	<?php foreach ($template->rightHeader as $item): ?>
+		<text x="424" y="<?= $y ?>" font-size="7" fill="<?= $template->colors['white'] ?>" text-anchor="end"><?= TemplateUtility::escape($item) ?></text>
+	<?php endforeach; ?>
+
+	<text x="434" y="<?= $y->centerPosition(-2) ?>" font-size="19" fill="<?= $template->colors['white'] ?>" font-weight="bold"><?= TemplateUtility::escape(mb_strtoupper($template->translate('Invoice'))) ?></text>
+	<!-- / Header text right -->
+
+	<!-- Subheader left -->
+	<?php $catcher = TemplateUtility::createMaxWidthCatcher($this->getRenderer(), $width); $catcher->start(); ?>
+	<text x="33" y="175" font-size="16" font-weight="bold" fill="<?= $template->colors['primary'] ?>"><?= TemplateUtility::escape(mb_strtoupper($template->translate('Customer'))) ?></text>
+	<?= $catcher->endAndGetContent() ?>
+
+	<?php
+		$x = $catcher->getWidth(true) + 48;
+		$y = 190;
+	?>
+
+	<polygon points="<?= $x ?>,<?= $y - 10 ?> <?= $x ?>,<?= $y ?> <?= $x - 7 ?>,<?= $y - 8 ?> 0,<?= $y - 8 ?> 0,<?= $y - 10 ?>" fill="<?= $template->colors['primary'] ?>" />
+
+	<?php $y = TemplateUtility::multiplier(210, 17) ?>
+	<?php foreach ($template->leftSubheader as $i => $item): ?>
+		<text x="33" y="<?= $y ?>" font-size="<?= $i === 0 ? 15 : 10 ?>"<?= $i === 0 ? ' font-weight="bold"' : '' ?>><?= TemplateUtility::escape($item) ?></text>
+	<?php endforeach; ?>
+	<!-- / Subheader left -->
+	<?php $globalY = $y->current() ?>
+
+	<!-- Subheader right -->
+	<?php $x = 350 ?>
+	<text x="<?= $x ?>" y="175" font-size="16" font-weight="bold" fill="<?= $template->colors['primary'] ?>"><?= TemplateUtility::escape(mb_strtoupper($template->translate('Payment'))) ?></text>
+
+	<?php $y = 182; ?>
+	<polygon points="<?= $x - 10 ?>,<?= $y ?> <?= $x - 10 ?>,<?= $y + 10 ?> <?= $x + 2 ?>,<?= $y + 2 ?> <?= $width ?>,<?= $y + 2 ?> <?= $width ?>,<?= $y ?>" fill="<?= $template->colors['primary'] ?>" />
+
+	<?php $y = TemplateUtility::multiplier(210, 17) ?>
+	<?php foreach ($template->rightSubheader as $i => $item): ?>
+		<text x="<?= $x ?>" y="<?= $y ?>" font-size="10"><?= TemplateUtility::escape($item) ?></text>
+	<?php endforeach; ?>
+	<!-- / Subheader right -->
+	<?php $globalY = ($y->current() > $globalY ? $y->current() : $globalY) + 55; ?>
+
+	<!-- Items header -->
+	<?php $y = TemplateUtility::multiplier($globalY, 29, false) ?>
+
+	<rect width="<?= $width ?>" height="29" x="0" y="<?= $y->current() - 29 ?>" fill="<?= $template->colors['even'] ?>" />
+	<polygon points="<?= $width ?>,<?= $y->current() - 29 ?> <?= $width ?>,<?= $y->current() ?> <?= $width - 124 ?>,<?= $y->current() ?> <?= $width - 100 ?>,<?= $y->current() - 29 ?>" fill="<?= $template->colors['primary'] ?>" />
+	<rect width="<?= $width ?>" height="1" x="0" y="<?= $y->current() ?>" fill="<?= $template->colors['primary'] ?>" />
+
+	<text y="<?= $y->current() - 10 ?>" x="35" font-size="10" fill="<?= $template->colors['primary'] ?>" font-weight="bold"><?= TemplateUtility::escape($template->translate('Item')) ?></text>
+	<text y="<?= $y->current() - 10 ?>" x="305" font-size="10" fill="<?= $template->colors['primary'] ?>" font-weight="bold" text-anchor="middle"><?= TemplateUtility::escape($template->translate('Price per item')) ?></text>
+	<text y="<?= $y->current() - 10 ?>" x="415" font-size="10" fill="<?= $template->colors['primary'] ?>" font-weight="bold" text-anchor="middle"><?= TemplateUtility::escape($template->translate('Quantity')) ?></text>
+
+	<text y="<?= $y->current() - 10 ?>" x="<?= $width - 56 ?>" font-size="10" fill="<?= $template->colors['white'] ?>" font-weight="bold" text-anchor="middle"><?= TemplateUtility::escape($template->translate('Price')) ?></text>
+
+	<?php $y->additional(1) ?>
+	<!-- / Items header -->
+
+	<!-- Items -->
+	<?php foreach ($order->getItems() as $i => $item): ?>
+		<?php $y->increment() ?>
+
+		<rect width="<?= $width ?>" height="29" x="0" y="<?= $y->current() - 29 ?>" fill="<?= $i % 2 === 0 ? $template->colors['odd'] : $template->colors['even'] ?>" />
+		<text y="<?= $y->current() - 11 ?>" x="35" font-size="8" fill="<?= $template->colors['text'] ?>"><?= TemplateUtility::escape($item->getName()) ?></text>
+		<text y="<?= $y->current() - 11 ?>" x="305" font-size="8" fill="<?= $template->colors['text'] ?>" text-anchor="middle"><?= TemplateUtility::escape($item->getUnitPrice()) ?></text>
+		<text y="<?= $y->current() - 11 ?>" x="415" font-size="8" fill="<?= $template->colors['text'] ?>" text-anchor="middle"><?= TemplateUtility::escape($item->getQuantity()) ?></text>
+		<text y="<?= $y->current() - 11 ?>" x="<?= $width - 56 ?>" font-size="8" fill="<?= $template->colors['text'] ?>" text-anchor="middle"><?= TemplateUtility::escape($item->getTotalPrice()) ?></text>
+	<?php endforeach; ?>
+	<!-- / Items -->
+
+	<!-- Items footer -->
+	<?php if ($order instanceof IPriceWithTax): ?>
+
+		<?php $y->increment() ?>
+
+		<rect width="<?= $width - 380 ?>" height="29" x="380" y="<?= $y->current() - 29 ?>" fill="<?= $template->colors['even'] ?>" />
+		<text y="<?= $y->current() - 10 ?>" x="402" font-size="10" fill="<?= $template->colors['text'] ?>" text-anchor="start" font-weight="bold"><?= TemplateUtility::escape($template->translate('Subtotal')) ?></text>
+		<text y="<?= $y->current() - 11 ?>" x="<?= $width - 56 ?>" font-size="8" fill="<?= $template->colors['text'] ?>" text-anchor="middle"><?= TemplateUtility::escape($order->getPriceBeforeTax()) ?></text>
+
+		<?php $y->increment() ?>
+
+		<rect width="<?= $width - 380 ?>" height="29" x="380" y="<?= $y->current() - 29 ?>" fill="<?= $template->colors['even'] ?>" />
+		<text y="<?= $y->current() - 10 ?>" x="402" font-size="10" fill="<?= $template->colors['text'] ?>" text-anchor="start" font-weight="bold"><?= TemplateUtility::escape($template->translate('Tax')) ?></text>
+		<text y="<?= $y->current() - 11 ?>" x="<?= $width - 56 ?>" font-size="8" fill="<?= $template->colors['text'] ?>" text-anchor="middle"><?= TemplateUtility::escape($order->getTax()) ?></text>
+
+	<?php endif; ?>
+
+	<?php $y->increment() ?>
+
+	<rect width="<?= $width - 380 ?>" height="29" x="380" y="<?= $y->current() - 29 ?>" fill="<?= $template->colors['even'] ?>" />
+	<text y="<?= $y->current() - 10 ?>" x="402" font-size="10" fill="<?= $template->colors['text'] ?>" text-anchor="start" font-weight="bold"><?= TemplateUtility::escape($template->translate('Total price')) ?></text>
+	<text y="<?= $y->current() - 11 ?>" x="<?= $width - 56 ?>" font-size="8" fill="<?= $template->colors['text'] ?>" text-anchor="middle"><?= TemplateUtility::escape($order->getTotalPrice()) ?></text>
+	<!-- / Items footer -->
+</svg>
