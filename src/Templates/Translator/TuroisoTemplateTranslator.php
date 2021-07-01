@@ -8,10 +8,10 @@ final class TuroisoTemplateTranslator extends Translator
 	public function __construct(string $lang = 'en')
 	{
 		$this->addLanguage('en', [
-			'Invoice' => 'Invoice',
-			'Payment' => 'Payment',
+			'Invoice' => 'INVOICE',
+			'Payment' => 'PAYMENT',
 			'Total price' => 'Total price',
-			'Customer' => 'Customer',
+			'Customer' => 'CUSTOMER',
 			'Item' => 'Item',
 			'ID' => 'ID',
 			'Price per item' => 'Price per item',

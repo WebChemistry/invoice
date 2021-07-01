@@ -7,7 +7,6 @@ use WebChemistry\SvgPdf\Utility\TemplateUtility;
 
 /** @var $this TuroisoTemplate */
 /** @var $template TuroisoTemplateObject */
-$formatMoney = $template->formatMoneyCallback();
 $order = $template->getOrder();
 $payment = $order->getPayment();
 
@@ -53,12 +52,12 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 		<text x="424" y="<?= $y ?>" font-size="7" fill="<?= $template->colors['white'] ?>" text-anchor="end"><?= TemplateUtility::escape($item) ?></text>
 	<?php endforeach; ?>
 
-	<text x="434" y="<?= $y->centerPosition(-2) ?>" font-size="19" fill="<?= $template->colors['white'] ?>" font-weight="bold"><?= TemplateUtility::escape(mb_strtoupper($template->translate('Invoice'))) ?></text>
+	<text x="434" y="<?= $y->centerPosition(-2) ?>" font-size="19" fill="<?= $template->colors['white'] ?>" font-weight="bold"><?= TemplateUtility::escape($template->translate('Invoice')) ?></text>
 	<!-- / Header text right -->
 
 	<!-- Subheader left -->
 	<?php $catcher = TemplateUtility::createMaxWidthCatcher($this->getRenderer(), $width); $catcher->start(); ?>
-	<text x="33" y="175" font-size="16" font-weight="bold" fill="<?= $template->colors['primary'] ?>"><?= TemplateUtility::escape(mb_strtoupper($template->translate('Customer'))) ?></text>
+	<text x="33" y="175" font-size="16" font-weight="bold" fill="<?= $template->colors['primary'] ?>"><?= TemplateUtility::escape($template->translate('Customer')) ?></text>
 	<?= $catcher->endAndGetContent() ?>
 
 	<?php
@@ -77,7 +76,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 
 	<!-- Subheader right -->
 	<?php $x = 350 ?>
-	<text x="<?= $x ?>" y="175" font-size="16" font-weight="bold" fill="<?= $template->colors['primary'] ?>"><?= TemplateUtility::escape(mb_strtoupper($template->translate('Payment'))) ?></text>
+	<text x="<?= $x ?>" y="175" font-size="16" font-weight="bold" fill="<?= $template->colors['primary'] ?>"><?= TemplateUtility::escape($template->translate('Payment')) ?></text>
 
 	<?php $y = 182; ?>
 	<polygon points="<?= $x - 10 ?>,<?= $y ?> <?= $x - 10 ?>,<?= $y + 10 ?> <?= $x + 2 ?>,<?= $y + 2 ?> <?= $width ?>,<?= $y + 2 ?> <?= $width ?>,<?= $y ?>" fill="<?= $template->colors['primary'] ?>" />
