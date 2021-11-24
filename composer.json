@@ -11,7 +11,7 @@
   ],
   "require": {
     "php": ">=8.0",
-    "webchemistry/svg-pdf": "~1.1.0"
+    "webchemistry/svg-pdf": "~1.1.2"
   },
   "require-dev": {
     "codeception/codeception": "^4.1.0",
