@@ -4,7 +4,8 @@ namespace Contributte\Invoice\Bridge\Nette\DI;
 
 use Contributte\Invoice\Data\Account;
 use Contributte\Invoice\Data\Company;
-use Contributte\Invoice\Provider\InvoiceDataProvider;
+use Contributte\Invoice\Provider\InvoiceAccountsProvider;
+use Contributte\Invoice\Provider\InvoiceCompanyProvider;
 use Nette\DI\CompilerExtension;
 use Nette\DI\Definitions\Statement;
 use Nette\Schema\Expect;
@@ -36,11 +37,17 @@ final class InvoiceExtension extends CompilerExtension
 	{
 		$builder = $this->getContainerBuilder();
 
-		$builder->addDefinition($this->prefix('dataProvider'))
-			->setFactory(InvoiceDataProvider::class, [
-				$this->getCompany(),
-				$this->getAccounts(),
-			]);
+		$company = $this->getCompany();
+		if ($company) {
+			$builder->addDefinition($this->prefix('companyProvider'))
+				->setFactory(InvoiceCompanyProvider::class, [$company]);
+		}
+
+		$accounts = $this->getAccounts();
+		if ($accounts) {
+			$builder->addDefinition($this->prefix('accountsProvider'))
+				->setFactory(InvoiceAccountsProvider::class, [$accounts]);
+		}
 	}
 
 	private function getCompany(): ?Statement
