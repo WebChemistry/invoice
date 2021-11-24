@@ -6,6 +6,7 @@
 - [Setup](#setup)
 - [Preview with minimal setup](#preview-with-minimal-setup)
 - [Entities](#entities)
+- [Data providers](#data-providers)
 - [Generating invoices](#generating-invoices)
 - [Neon configuration](#neon-configuration)
 - [Templates](#templates)
@@ -14,23 +15,19 @@
 
 Average output is ~9ms for pdf and ~ 1ms for svg
 
-## Setup
-
-```php
-$invoice = new Contributte\Invoice\Invoice();
-
-$dataProvider = new Contributte\Invoice\Provider\DataProvider(
-    new Company('Contributte', 'Prague', 'U haldy', '110 00', 'Czech Republic', 'CZ08304431', '08304431'),
-    [new Account('CZ4808000000002353462013')],
-);
-```
-
 ## Preview with minimal setup
 
 ```php
 use Contributte\Invoice\Preview\PreviewFactory;
+use Contributte\Invoice\Templates\ParaisoTemplate;
 
-$invoice->send(PreviewFactory::createOrder());
+$template = new ParaisoTemplate();
+
+// pdf
+echo $template->renderToPdf(PreviewFactory::createOrder());
+
+// svg
+echo $template->renderToSvg(PreviewFactory::createOrder());
 ```
 
 ## Entities
@@ -109,26 +106,43 @@ $order->addInlineItem('Logitech G700s Rechargeable Gaming Mouse', '$ 1.790,00', 
 $order->addItem(new Item('Logitech G700s Rechargeable Gaming Mouse', '$ 1.790,00', 4, '$ 7.160,00'));
 ```
 
+## Data providers
+In most applications we need only one seller and one or more same accounts. We use for them prepared data providers
+
+```php
+use Contributte\Invoice\Data\Account;
+use Contributte\Invoice\Data\Company;
+use Contributte\Invoice\Provider\InvoiceAccountsProvider;
+use Contributte\Invoice\Provider\InvoiceCompanyProvider;
+
+$companyProvider = new InvoiceCompanyProvider(new Company(...));
+$companyProvider->getCompany();
+
+$accountsProvider = new InvoiceAccountsProvider([
+    new Account(...),
+]);
+$accountsProvider->getAccounts();
+$accountsProvider->getAccount();
+```
+
 ## Generating invoices
 
 ```php
 header('Content-Type: application/pdf; charset=utf-8');
-echo $invoice->create($order);
-```
-
-method `Invoice::send()` automatically sets content-type header
-
-```php
-$invoice->send($order);
+echo $template->renderToPdf($order);
 ```
 
 if you use nette, recommended way is
 
 ```php
+use Contributte\Invoice\Bridge\Nette\Response\InvoicePdfResponse;
+
 class CustomPresenter {
 
 	public function actionPreview() {
-		$this->sendResponse($this->invoice->createResponse($order));
+	    // declare $template and $order
+
+		$this->sendResponse(new InvoicePdfResponse($template, $order));
 	}
 
 }
