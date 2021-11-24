@@ -20,8 +20,8 @@ class ParaisoTemplate extends Template
 	public function __construct(?ITranslator $translator = null)
 	{
 		$renderer = new PdfSvg();
-		$renderer->addFont('Montserrat', __DIR__ . '/assets/font/Montserrat-Regular.php')
-			->addFont('Montserrat', __DIR__ . '/assets/font/Montserrat-Bold.php', 'bold');
+		$renderer->addFont('Montserrat', __DIR__ . '/../../assets/font/Montserrat-Regular.php')
+			->addFont('Montserrat', __DIR__ . '/../../assets/font/Montserrat-Bold.php', 'bold');
 
 		$this->colors = [
 			'text' => Color::fromString('#141618'),
