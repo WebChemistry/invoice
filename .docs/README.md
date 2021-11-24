@@ -12,7 +12,7 @@
 
 ## Benchmark
 
-Average output is ~5ms
+Average output is ~9ms for pdf and ~ 1ms for svg
 
 ## Setup
 

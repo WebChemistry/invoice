@@ -1,10 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace Contributte\Invoice\DI;
+namespace Contributte\Invoice\Bridge\Nette\DI;
 
 use Contributte\Invoice\Data\Account;
 use Contributte\Invoice\Data\Company;
-use Contributte\Invoice\Invoice;
 use Contributte\Invoice\Provider\InvoiceDataProvider;
 use Nette\DI\CompilerExtension;
 use Nette\DI\Definitions\Statement;
@@ -12,7 +11,7 @@ use Nette\Schema\Expect;
 use Nette\Schema\Schema;
 use stdClass;
 
-class InvoiceExtension extends CompilerExtension
+final class InvoiceExtension extends CompilerExtension
 {
 
 	public function getConfigSchema(): Schema
@@ -42,9 +41,6 @@ class InvoiceExtension extends CompilerExtension
 				$this->getCompany(),
 				$this->getAccounts(),
 			]);
-
-		$builder->addDefinition($this->prefix('invoice'))
-			->setFactory(Invoice::class);
 	}
 
 	private function getCompany(): ?Statement
