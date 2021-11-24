@@ -7,6 +7,8 @@ use Contributte\Invoice\Data\IOrder;
 interface ITemplate
 {
 
-	public function render(IOrder $order): string;
+	public function renderToPdf(IOrder $order): string;
+
+	public function renderToSvg(IOrder $order): string;
 
 }

@@ -22,7 +22,7 @@ abstract class Template implements ITemplate
 		return $this->renderer;
 	}
 
-	public function render(IOrder $order): string
+	public function renderToPdf(IOrder $order): string
 	{
 		return $this->renderTemplate($order);
 	}
