@@ -2,15 +2,18 @@
 
 namespace Contributte\Invoice\Bridge\Nette\Response;
 
+use Contributte\Invoice\Data\IOrder;
+use Contributte\Invoice\Templates\ITemplate;
 use Nette\Application\Response;
 use Nette\Http\IRequest;
 use Nette\Http\IResponse;
 
-final class PdfResponse implements Response
+final class InvoicePdfResponse implements Response
 {
 
 	public function __construct(
-		private string $content,
+		private ITemplate $template,
+		private IOrder $order,
 	)
 	{
 	}
@@ -19,7 +22,7 @@ final class PdfResponse implements Response
 	{
 		$httpResponse->setContentType('application/pdf', 'utf-8');
 
-		echo $this->content;
+		echo $this->template->renderToPdf($this->order);
 	}
 
 }
