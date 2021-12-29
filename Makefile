@@ -16,7 +16,7 @@ csf:
 	vendor/bin/codefixer src tests
 
 phpstan:
-	vendor/bin/phpstan analyse -l max -c phpstan.neon src
+	vendor/bin/phpstan analyse -l 8 -c phpstan.neon src
 
 tests:
 	vendor/bin/codecept run
