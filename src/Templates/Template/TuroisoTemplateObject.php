@@ -67,7 +67,7 @@ class TuroisoTemplateObject extends TemplateObject
 
 		$this->leftSubheader = array_filter([
 			$customer->getName(),
-			$this->implode([$company->getZip(), $company->getTown()], ', '),
+			$this->implode([$customer->getZip(), $customer->getTown()], ', '),
 			$customer->getAddress(),
 			$customer->getCountry(),
 			$this->prepend($translator->translate('ID') . ': ', $customer->getId()),
